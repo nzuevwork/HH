@@ -44,3 +44,27 @@ GitHub → CI → Docker → Registry → Kubernetes → Ingress → Public serv
 - Быстрое обнаружение сбоев через Grafana dashboards
 
 Цель: при ошибочном деплое сервис автоматически восстанавливается или может быть быстро откатан.
+
+---
+## Incident response example
+
+Ситуация:
+После обновления приложения веб-сервис стал недоступен.
+
+Действия:
+
+1. Проверил доступность ingress (Traefik) — маршрут существует
+2. Проверил service — endpoint присутствует
+3. kubectl get pods — pod в состоянии CrashLoopBackOff
+4. kubectl describe pod — контейнер не проходит readiness probe
+5. kubectl logs — ошибка конфигурации приложения
+
+Причина:
+Некорректное значение переменной окружения в Kubernetes Secret.
+
+Решение:
+Исправлен Secret и выполнено:
+kubectl rollout restart deployment
+
+Результат:
+Pod успешно перезапущен, сервис восстановлен.
