@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-nginx
+  namespace: demo
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: demo-nginx
+
+  template:
+    metadata:
+      labels:
+        app: demo-nginx
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "80"
+
+    spec:
+      imagePullSecrets:
+        - name: ghcr-creds
+
+      containers:
+        - name: nginx
+          image: ghcr.io/nzuevwork/demo-nginx:latest
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 80
+
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "128Mi"

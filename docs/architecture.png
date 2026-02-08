@@ -1,0 +1,17 @@
+GitHub push
+   ↓
+GitHub Actions (self-hosted runner)
+   ↓
+Docker build
+   ↓
+GHCR registry
+   ↓
+Kubernetes deployment
+   ↓
+Traefik ingress
+   ↓
+Public web service
+   ↓
+Prometheus monitoring
+   ↓
+Grafana dashboards
