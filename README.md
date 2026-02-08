@@ -32,3 +32,15 @@ GitHub → CI → Docker → Registry → Kubernetes → Ingress → Public serv
 
 ---
 
+## Reliability goals
+
+Инфраструктура спроектирована так, чтобы минимизировать простой сервиса.
+
+Реализовано:
+- Rolling update без downtime
+- Автоматическое восстановление pod'ов Kubernetes
+- Readiness и liveness probes
+- Мониторинг доступности сервиса через Prometheus
+- Быстрое обнаружение сбоев через Grafana dashboards
+
+Цель: при ошибочном деплое сервис автоматически восстанавливается или может быть быстро откатан.
